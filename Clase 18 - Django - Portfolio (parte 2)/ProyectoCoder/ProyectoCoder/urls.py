@@ -20,4 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     re_path('', include('AppCoder.urls')),
     re_path('', include('AppCoderTutor.urls')),
+    re_path('', include('Repaso.urls'))
+
 ]

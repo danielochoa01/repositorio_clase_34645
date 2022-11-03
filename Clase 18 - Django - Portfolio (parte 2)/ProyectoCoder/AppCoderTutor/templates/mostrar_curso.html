@@ -8,7 +8,13 @@
 </head>
 <body>
     <h1>
-        Hola a todos, este es curso de {{nombre}} con numero de comision {{comision}} y {{esta_activo}}
+        {{objeto.clase}}
     </h1>
+    
+    {% for curso in cursos %}
+
+        <h3>Hola, estamos en el curso de {{curso.nombre}}, con numero de comision {{curso.comision}}</h3>
+    {% endfor %}
+
 </body>
 </html>
