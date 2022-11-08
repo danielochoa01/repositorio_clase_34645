@@ -10,3 +10,17 @@ def mostrar_curso(request):
 
     return HttpResponse(saludo)
     #return render(request, '', {'nombre': curso.nombre, 'comision': curso.comision})
+
+def mostrar_index(request):
+
+    return render(request, 'index.html')
+
+
+def mostrar_referencias(request):
+
+    return render(request, 'referencias.html')
+
+
+def mostrar_repaso(request):
+
+    return render(request, 'repaso.html')
