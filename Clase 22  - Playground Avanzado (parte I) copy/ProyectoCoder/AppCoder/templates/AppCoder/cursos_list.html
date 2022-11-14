@@ -8,7 +8,18 @@
             <button>
                 <a href="{% url 'Detail' curso.id %}"> Ver Detalles</a>
             </button>
+            <button>
+                <a href="{% url 'Delete' curso.id %}">Eliminar</a>
+            </button>
+            <button>
+                <a href="{% url 'Update' curso.id %}">Actualizar</a>
+            </button>            
         </li>
     </ul>
 
 {% endfor %}
+
+<button>
+    <a href="{% url 'Create' %}">Crear nuevo registro</a>
+</button> 
+

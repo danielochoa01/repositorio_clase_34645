@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Curso, Profesor
 from .forms import CrearCursoForm, CrearProfesorForm
 
@@ -155,3 +156,37 @@ class CursoDetailView(DetailView):
 
     model = Curso
     template_name = 'AppCoder/curso_detalle.html'
+
+class CursoDeleteView(DeleteView):
+
+    # Recordatorio, en success_url utilzar el nombre de la url
+    # Ejemplo:
+    # path('cursos_list/', views.CursoList.as_view(), name='List'),
+    # en este caso, utilizar el string del primer parametro
+    # antecedido de una slash
+    model = Curso
+    success_url = '/cursos_list'
+
+
+class CursoUpdateView(UpdateView):
+
+    # Recordatorio, en success_url utilzar el nombre de la url
+    # Ejemplo:
+    # path('cursos_list/', views.CursoList.as_view(), name='List'),
+    # en este caso, utilizar el string del primer parametro
+    # antecedido de una slash
+    model = Curso
+    success_url = '/cursos_list'
+    fields = ['nombre', 'comision']
+
+
+class CursoCreateView(CreateView):
+
+    # Recordatorio, en success_url utilzar el nombre de la url
+    # Ejemplo:
+    # path('cursos_list/', views.CursoList.as_view(), name='List'),
+    # en este caso, utilizar el string del primer parametro
+    # antecedido de una slash
+    model = Curso
+    success_url = '/cursos_list'
+    fields = ['nombre', 'comision']    
