@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import ListView
+from django.views.generic.detail import DetailView
 from .models import Curso, Profesor
 from .forms import CrearCursoForm, CrearProfesorForm
 
@@ -148,3 +149,9 @@ class CursoList(ListView):
 
     model = Curso
     template_name = 'AppCoder/cursos_list.html'
+
+
+class CursoDetailView(DetailView):
+
+    model = Curso
+    template_name = 'AppCoder/curso_detalle.html'

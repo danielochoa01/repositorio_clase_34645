@@ -1,0 +1,14 @@
+
+{% for curso in object_list %}
+
+    <ul>
+        <li>
+            {{curso}}
+
+            <button>
+                <a href="{% url 'Detail' curso.id %}"> Ver Detalles</a>
+            </button>
+        </li>
+    </ul>
+
+{% endfor %}
