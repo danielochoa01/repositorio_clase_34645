@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.views.generic import ListView
 from .models import Curso, Profesor
 from .forms import CrearCursoForm, CrearProfesorForm
 
@@ -116,3 +117,34 @@ def eliminar_profesor(request, profesor_id):
 
     return render(request, 'mostrar_profesores.html', context=context)
 
+
+def actualizar_profesor(request, profesor_id):
+
+    profesor = Profesor.objects.get(id=profesor_id)
+
+    if request.method == 'POST':
+
+        formulario = CrearProfesorForm(request.POST)
+
+        if formulario.is_valid():
+
+            formulario_limpio = formulario.cleaned_data
+
+            profesor.nombre = formulario_limpio['nombre']
+            profesor.apellido = formulario_limpio['apellido']
+            profesor.email = formulario_limpio['email']
+            profesor.profesion = formulario_limpio['profesion']
+
+            profesor.save()
+
+            return render(request, 'index.html')
+
+    else:
+        formulario = CrearProfesorForm(initial={'nombre': profesor.nombre, 'apellido': profesor.apellido, 'email': profesor.email, 'profesion': profesor.profesion})
+    return render(request, 'actualizar_profesor.html', {'formulario': CrearProfesorForm, 'profesor': profesor})
+
+
+class CursoList(ListView):
+
+    model = Curso
+    template_name = 'AppCoder/cursos_list.html'

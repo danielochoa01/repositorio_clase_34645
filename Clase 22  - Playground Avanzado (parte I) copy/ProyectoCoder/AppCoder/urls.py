@@ -26,5 +26,6 @@ urlpatterns = [
     path('buscar_comision/', views.buscar_comision, name='Buscar Comision'),
     path('buscar_profesor/', views.buscar_profesor, name='Buscar Profesor'),
     path('mostrar_profesores/', views.mostrar_profesores, name='Mostrar Profesores'),
-    path('eliminar_profesor/<profesor_id>', views.eliminar_profesor, name='Eliminar Profesor')
+    path('eliminar_profesor/<profesor_id>', views.eliminar_profesor, name='Eliminar Profesor'),
+    path('actualizar_profesor/<profesor_id>', views.actualizar_profesor, name='Actualizar Profesor')
 ]
