@@ -14,15 +14,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from .views import mostrar_curso, mostrar_index, mostrar_referencias, mostrar_repaso, crear_curso, crear_profesor, buscar_comision, buscar_profesor
+from AppCoder import views
 
 urlpatterns = [
-    path('mostrar_curso/', mostrar_curso, name='Mostrar'),
-    path('', mostrar_index),
-    path('mostrar_referencias/', mostrar_referencias, name='Referencias'),
-    path('mostrar_repaso/', mostrar_repaso, name='Repaso'),
-    path('crear_curso/', crear_curso, name='Crear Curso'),
-    path('crear_profesor/', crear_profesor, name='Crear Profesor'),
-    path('buscar_comision/', buscar_comision, name='Buscar Comision'),
-    path('buscar_profesor/', buscar_profesor, name='Buscar Profesor'),
+    path('mostrar_curso/', views.mostrar_curso, name='Mostrar'),
+    path('', views.mostrar_index),
+    path('mostrar_referencias/', views.mostrar_referencias, name='Referencias'),
+    path('mostrar_repaso/', views.mostrar_repaso, name='Repaso'),
+    path('crear_curso/', views.crear_curso, name='Crear Curso'),
+    path('crear_profesor/', views.crear_profesor, name='Crear Profesor'),
+    path('buscar_comision/', views.buscar_comision, name='Buscar Comision'),
+    path('buscar_profesor/', views.buscar_profesor, name='Buscar Profesor'),
+    path('mostrar_profesores/', views.mostrar_profesores, name='Mostrar Profesores'),
+    path('eliminar_profesor/<profesor_id>', views.eliminar_profesor, name='Eliminar Profesor')
 ]

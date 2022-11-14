@@ -93,3 +93,26 @@ def buscar_profesor(request):
     else:
         respuesta = 'No hay datos'
     return render(request, 'buscar_profesor.html', {'respuesta': respuesta})
+
+
+def mostrar_profesores(request):
+
+    profesores = Profesor.objects.all()
+
+    context = {'profesores': profesores}
+
+    return render(request, 'mostrar_profesores.html', context=context)
+
+
+def eliminar_profesor(request, profesor_id):
+
+    profesor = Profesor.objects.get(id=profesor_id)
+
+    profesor.delete()
+
+    profesores = Profesor.objects.all()
+
+    context = {'profesores': profesores}
+
+    return render(request, 'mostrar_profesores.html', context=context)
+

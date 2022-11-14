@@ -1,0 +1,10 @@
+{% for profesor in profesores %}
+    <p>
+        id: {{profesor.id}}
+        Nombre: {{profesor.nombre}}, Apellido: {{profesor.apellido}}
+        Email: {{profesor.email}}
+    </p>
+    <button>
+        <a href="{% url 'Eliminar Profesor' profesor_id=profesor.id %}">Eliminar</a>
+    </button>
+{% endfor %}
