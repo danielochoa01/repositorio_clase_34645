@@ -9,6 +9,19 @@ from django.urls import reverse_lazy
 # Auth
 from django.contrib.auth.views import LoginView, LogoutView
 
+#Los decoradores sirven para funciones > vistas basadas en funciones
+from django.contrib.auth.decorators import login_required
+
+#ejemplo
+# @decorador
+# def funcion_a_proteger
+
+#Los mixins sirven para clases > vistas basadas en clases
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+#ejemplo
+# class ClaseAProteger(MixinParaProteger)
+
 from .models import Curso, Profesor
 from .forms import CrearCursoForm, CrearProfesorForm, SignUpForm
 
@@ -22,6 +35,8 @@ def mostrar_curso(request):
     return HttpResponse(saludo)
     #return render(request, '', {'nombre': curso.nombre, 'comision': curso.comision})
 
+
+@login_required
 def mostrar_index(request):
 
     return render(request, 'index.html')
@@ -153,7 +168,7 @@ def actualizar_profesor(request, profesor_id):
     return render(request, 'actualizar_profesor.html', {'formulario': CrearProfesorForm, 'profesor': profesor})
 
 
-class CursoList(ListView):
+class CursoList(LoginRequiredMixin, ListView):
 
     model = Curso
     template_name = 'AppCoder/cursos_list.html'
@@ -187,7 +202,7 @@ class CursoUpdateView(UpdateView):
     fields = ['nombre', 'comision']
 
 
-class CursoCreateView(CreateView):
+class CursoCreateView(LoginRequiredMixin, CreateView):
 
     # Recordatorio, en success_url utilzar el nombre de la url
     # Ejemplo:
