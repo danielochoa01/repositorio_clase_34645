@@ -18,7 +18,7 @@ from AppCoder import views
 
 urlpatterns = [
     path('mostrar_curso/', views.mostrar_curso, name='Mostrar'),
-    path('', views.mostrar_index),
+    path('', views.mostrar_index, name='Home'),
     path('mostrar_referencias/', views.mostrar_referencias, name='Referencias'),
     path('mostrar_repaso/', views.mostrar_repaso, name='Repaso'),
     path('crear_curso/', views.crear_curso, name='Crear Curso'),
@@ -32,5 +32,8 @@ urlpatterns = [
     path('curso_detail/<pk>', views.CursoDetailView.as_view(), name='Detail'),
     path('curso_confirm_delete/<pk>', views.CursoDeleteView.as_view(), name='Delete'),
     path('curso_edit/<pk>', views.CursoUpdateView.as_view(), name='Update'),
-    path('curso_form/', views.CursoCreateView.as_view(), name='Create')
+    path('curso_form/', views.CursoCreateView.as_view(), name='Create'),
+    path('signup/', views.SignUpView.as_view(), name='Sign Up'),
+    path('login/', views.AdminLoginView.as_view(), name='Login'),
+    path('logout/', views.AdminLogoutView.as_view(), name='Logout'),
 ]

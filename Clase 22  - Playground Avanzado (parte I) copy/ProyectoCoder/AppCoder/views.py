@@ -3,8 +3,15 @@ from django.http import HttpResponse
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+
+# Redireccion
+from django.urls import reverse_lazy
+# Auth
+from django.contrib.auth.views import LoginView, LogoutView
+
 from .models import Curso, Profesor
-from .forms import CrearCursoForm, CrearProfesorForm
+from .forms import CrearCursoForm, CrearProfesorForm, SignUpForm
+
 
 # Create your views here.
 def mostrar_curso(request):
@@ -189,4 +196,18 @@ class CursoCreateView(CreateView):
     # antecedido de una slash
     model = Curso
     success_url = '/cursos_list'
-    fields = ['nombre', 'comision']    
+    fields = ['nombre', 'comision']
+
+
+class SignUpView(CreateView):
+
+    form_class = SignUpForm
+    success_url = reverse_lazy('Home')
+    template_name = 'registro.html'
+
+
+class AdminLoginView(LoginView):
+    template_name = 'login.html'
+
+class AdminLogoutView(LogoutView):
+    template_name = 'logout.html'
