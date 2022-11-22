@@ -25,7 +25,12 @@
                 <a class="btn btn-primary" href="{% url 'Buscar Comision' %}">Buscar Comision</a>
                 <a class="btn btn-primary" href="{% url 'Buscar Profesor' %}">Buscar Profesor</a>                                
                 <a class="btn btn-primary" href="{% url 'Referencias' %}">Referencias</a>
-                <a class="btn btn-primary" href="{% url 'Logout' %}">Logout</a>                
+                {% if request.user.is_authenticated %}
+                    <a class="btn btn-primary" href="{% url 'Logout' %}">Logout</a>
+                {% else %}
+                    <a class="btn btn-primary" href="{% url 'Login' %}">Login</a> 
+                {% endif %}
+
             </div>
         </nav>
         <!-- Masthead-->
@@ -35,7 +40,14 @@
                     <div class="col-xl-6">
                         <div class="text-center text-white">
                             <!-- Page heading-->
-                            <h1 class="mb-5">Generate more leads with a professional landing page!</h1>
+                            {% if request.user.is_authenticated %}
+                                <img src="{{url}}" alt="">
+
+                                
+                                <h1 class="mb-5">Hola {{user.username}}</h1>
+                            {% else %}
+                                <h1 class="mb-5">Hola invitado</h1>
+                            {% endif %}
                             <!-- Signup form-->
                             <!-- * * * * * * * * * * * * * * *-->
                             <!-- * * SB Forms Contact Form * *-->

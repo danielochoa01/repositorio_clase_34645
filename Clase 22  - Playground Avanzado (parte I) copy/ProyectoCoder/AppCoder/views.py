@@ -22,8 +22,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 #ejemplo
 # class ClaseAProteger(MixinParaProteger)
 
-from .models import Curso, Profesor
-from .forms import CrearCursoForm, CrearProfesorForm, SignUpForm
+from .models import Curso, Profesor, Avatar
+from .forms import CrearCursoForm, CrearProfesorForm, SignUpForm, UserEditForm
 
 
 # Create your views here.
@@ -35,11 +35,12 @@ def mostrar_curso(request):
     return HttpResponse(saludo)
     #return render(request, '', {'nombre': curso.nombre, 'comision': curso.comision})
 
-
-@login_required
+#@login_required
 def mostrar_index(request):
 
-    return render(request, 'index.html')
+    imagenes = Avatar.objects.filter(user=request.user.id)
+
+    return render(request, 'index.html', {'url': imagenes[0].imagen.url})
 
 
 def mostrar_referencias(request):
@@ -168,6 +169,39 @@ def actualizar_profesor(request, profesor_id):
     return render(request, 'actualizar_profesor.html', {'formulario': CrearProfesorForm, 'profesor': profesor})
 
 
+
+def editar_usuario(request):
+
+    usuario = request.user
+
+    if request.method == 'POST':
+        usuario_form = UserEditForm(request.POST)
+
+        if usuario_form.is_valid():
+
+            informacion = usuario_form.cleaned_data
+
+            usuario.username = informacion['username']
+            usuario.email = informacion['email']
+            usuario.password1 = informacion['password1']
+            usuario.password2 = informacion['password2']
+
+            usuario.save()
+
+            return render(request, 'index.html')
+
+    else:
+        usuario_form = UserEditForm(initial={
+            'username': usuario.username,
+            'email': usuario.email,
+        })
+
+    return render(request, 'AppCoder/admin_update.html', {
+        'form': usuario_form,
+        'usuario': usuario
+    })
+
+
 class CursoList(LoginRequiredMixin, ListView):
 
     model = Curso
@@ -226,3 +260,17 @@ class AdminLoginView(LoginView):
 
 class AdminLogoutView(LogoutView):
     template_name = 'logout.html'
+
+
+class AdminUpdateView(UpdateView):
+
+    # Recordatorio, en success_url utilzar el nombre de la url
+    # Ejemplo:
+    # path('cursos_list/', views.CursoList.as_view(), name='List'),
+    # en este caso, utilizar el string del primer parametro
+    # antecedido de una slash
+    model = Curso
+    success_url = '/cursos_list'
+    fields = ['nombre', 'comision']
+
+
